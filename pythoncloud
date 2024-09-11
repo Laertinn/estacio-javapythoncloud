@@ -1,0 +1,38 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Leitura dos dados de um arquivo CSV
+# Certifique-se de substituir 'vendas.csv' pelo caminho do seu arquivo CSV
+arquivo_csv = 'vendas.csv'
+dados = pd.read_csv(arquivo_csv)
+
+# Exibindo as primeiras linhas do DataFrame para verificar os dados
+print("Dados Iniciais:")
+print(dados.head())
+
+# Processamento dos dados
+# Supondo que o CSV tem colunas 'Data', 'Produto' e 'Valor'
+# Agrupando os dados por produto e somando os valores de vendas
+vendas_por_produto = dados.groupby('Produto')['Valor'].sum().reset_index()
+
+# Exibindo os dados processados
+print("\nVendas por Produto:")
+print(vendas_por_produto)
+
+# Visualização dos dados
+# Gráfico de barras para mostrar as vendas por produto
+plt.figure(figsize=(10, 6))
+plt.bar(vendas_por_produto['Produto'], vendas_por_produto['Valor'], color='skyblue')
+plt.xlabel('Produto')
+plt.ylabel('Valor Total de Vendas')
+plt.title('Vendas Totais por Produto')
+plt.xticks(rotation=45)
+plt.tight_layout()
+
+# Salvando o gráfico em um arquivo
+plt.savefig('vendas_por_produto.png')
+plt.show()
+
+# Estatísticas básicas
+print("\nEstatísticas Básicas:")
+print(dados.describe())
